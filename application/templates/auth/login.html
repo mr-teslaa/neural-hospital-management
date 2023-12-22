@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>
+            {% if title %}{{ title }} |{% endif %}
+            NeuroGlobal
+        </title>
+        <!-- Custom fonts for this template-->
+        <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}"
+              rel="stylesheet"
+              type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet">
+        <!-- Custom styles for this template-->
+        <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }} "
+              rel="stylesheet">
+    </head>
+    <body class="bg-gradient-primary">
+        <div class="container">
+            <!-- FLASH START -->
+            {% with messages=get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} fade show my-3" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <!-- FLASH END -->
+            <!-- Outer Row -->
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-12 col-md-9">
+                    <div class="card my-5 p-sm-2 p-md-5">
+                        <div class="row g-0">
+                            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                                <img src="{{ url_for('static', filename='img/logo.png') }}"
+                                     class="img-fluid rounded-start"
+                                     alt="Neuroglobal Logo" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <form method="post" action="">
+                                        {{ form.hidden_tag() }}
+                                        <h1 class="h3 text-gray-900 mb-4">Login</h1>
+                                        <!-- EMAIL -->
+                                        <div class="form-group">
+                                            {{ form.email.label(class="form-label") }}
+                                            {% if form.email.errors %}
+                                                {{ form.email(class="form-control form-control-user is-invalid", placeholder="Email") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.email.errors %}<span>{{ error }}</span>{% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.email(class="form-control form-control-user", placeholder="Email") }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form.password.label(class="form-label") }}
+                                            {% if form.password.errors %}
+                                                {{ form.password(class="form-control form-control-user is-invalid", placeholder="Password") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.password.errors %}<span>{{ error }}</span>{% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.password(class="form-control form-control-user", placeholder="Password") }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group text-center">{{ form.submit(class="btn btn-primary w-100") }}</div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }} "></script>
+        <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }} "></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }} "></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }} "></script>
+    </body>
+</html>

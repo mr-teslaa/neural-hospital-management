@@ -1,0 +1,95 @@
+{% extends 'layout/user-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Appointments</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{{ url_for("public.index") }}"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-plus fa-sm text-white-50"></i> Book New Appointment </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Booked Date</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Action Buttons</th>
+                            </tr>
+                        </thead>
+                        {% if appointments %}
+                            <tbody>
+                                {% for appointment in appointments %}
+                                    <tr>
+                                        <td>
+                                            {% if appointment.appointment_date %}
+                                                {{ moment(appointment.appointment_date).format('LL') }}
+                                            {% else %}
+                                                <span class="bg-warning text-white p-1">No date assinged</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ appointment.first_name | title }} {{ appointment.last_name | title }}</td>
+                                        <td>{{ appointment.phone }}</td>
+                                        <td>
+                                            {% if appointment.location == 'kolkata-airport-area' %}
+                                                Kolkata Airport Area
+                                            {% elif appointment.location == 'bongaon' %}
+                                                Bongaon
+                                            {% elif appointment.location == 'habra' %}
+                                                Habra
+                                            {% else %}
+                                                Not Assinged
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if appointment.status == 'pending-date' %}
+                                                <span class="bg-info text-white p-1">Pending Date</span>
+                                            {% elif appointment.status == 'pending-report' %}
+                                                <span class="bg-info text-white p-1">Pending Report</span>
+                                            {% elif appointment.status == 'pending-test' %}
+                                                <span class="bg-info text-white p-1">Pending Test</span>
+                                            {% elif appointment.status == 'completed' %}
+                                                <span class="text-success fw-bolder">Completed</span>
+                                            {% else %}
+                                                <span class="bg-warning text-white p-1">Pending</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if appointment.prescription and appointment.prescription != 'defaultreport.jpg' %}
+                                                <form action="{{ url_for('users.download_prescription', appointment_id=appointment.id) }}"
+                                                      method="post">
+                                                    <button type="submit"
+                                                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                        <i class="fas fa-download fa-sm text-white"></i> Download Report
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <span class="bg-warning text-white p-1">Prescription Pending</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% else %}
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-center">No Appointment Booked</td>
+                                </tr>
+                            </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

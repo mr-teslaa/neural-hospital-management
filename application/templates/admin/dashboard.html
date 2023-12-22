@@ -1,0 +1,247 @@
+{% extends 'layout/admin-base.html' %}
+
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                Total Appointments
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ appointments | length }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                Total Test Booking
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ tests | length }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-notes-medical fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                Upcoming Appointments
+              </div>
+
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ upcomming_appointments | length }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="far fa-calendar fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                Pending Tests
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_tests | length }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+
+  <div class="row">
+    <!-- Area Chart -->
+    <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Bookings Overview</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="myAreaChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Location wise</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div class="chart-pie pt-4 pb-2">
+            <canvas id="myPieChart"></canvas>
+          </div>
+          <div class="mt-4 text-center small">
+            <span class="mr-2">
+              <i class="fas fa-circle text-primary"></i> Kolkata Airport Area
+            </span>
+            <span class="mr-2">
+              <i class="fas fa-circle text-success"></i> Habra
+            </span>
+            <span class="mr-2">
+              <i class="fas fa-circle text-info"></i> Bongaon
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+
+<div class="container">
+  <canvas id="bookingChart" width="400" height="200"></canvas>
+</div>
+
+<!-- START - BOOKING APPOINTMENT CHART -->
+<script>
+  // Fetch data from the server
+  fetch("{{ url_for('admin.booking_chart_data') }}")
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      const ctx = document.getElementById('bookingChart').getContext('2d');
+
+      // Create the line chart
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.labels,
+          datasets: [{
+            label: 'Number of Booked Appointments',
+            data: data.appointments,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            fill: false
+          }, {
+            label: 'Number of Booked Tests',
+            data: data.tests,
+            borderColor: 'rgba(192, 75, 75, 1)',
+            borderWidth: 2,
+            fill: false
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                unit: 'day'
+              }
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+</script>
+<!-- END - BOOKING APPOINTMENT CHART -->
+
+<script>
+  const xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+  new Chart("myAreaChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [{
+        data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+        borderColor: "#858796",
+        fill: false
+      }, {
+        data: [1600, 1700, 1700, 1900, 2000, 2700, 4000, 5000, 6000, 7000],
+        borderColor: "#1cc88a",
+        fill: false
+      }, {
+        data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
+        borderColor: "#36b9cc",
+        fill: false
+      }]
+    },
+    options: {
+      legend: { display: false }
+    }
+  });
+</script>
+
+<script>
+  var xValues2 = ["Kolkata Airport Area", "Habra", "Bongaon"];
+  var yValues = [55, 49, 44];
+  var barColors = [
+    "#4e73df",
+    "#1cc88a",
+    "#36b9cc",
+
+  ];
+
+  new Chart("myPieChart", {
+    type: "pie",
+    data: {
+      labels: xValues2,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'layout/admin-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">View Booked Test</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <!-- <a href="{{ url_for('public.book_test') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right">
+                    <i class="fas fa-plus fa-sm text-white-50"></i>
+                    Book New Test
+                </a> -->
+                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right">
+                    <i class="fas fa-plus fa-sm text-white-50"></i>
+                    Book New Test
+                </a> -->
+            </div>
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <!-- PATIENT NAME -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.first_name.label(class="form-label") }}
+                                {% if form.first_name.errors %}
+                                    {{ form.first_name(class="form-control is-invalid", placeholder="First Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.first_name.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.first_name(class="form-control", placeholder="First Name") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- EMAIL -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.last_name.label(class="form-label") }}
+                                {% if form.last_name.errors %}
+                                    {{ form.last_name(class="form-control is-invalid", placeholder="Last Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last_name.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.last_name(class="form-control", placeholder="Last Name") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- PHONE -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.phone.label(class="form-label") }}
+                                {% if form.phone.errors %}
+                                    {{ form.phone(class="form-control is-invalid", placeholder="Phone") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.phone(class="form-control", placeholder="Phone") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- LOCATION -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.location.label(class="form-label") }}
+                                {% if form.location.errors %}
+                                    {{ form.location(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.location.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.location(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- UPLOAD PRESCRIPTION -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.prescription.label(class="form-label") }}
+                                {% if form.prescription.errors %}
+                                    {{ form.prescription(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.prescription.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.prescription(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        {{ form.submit(class="btn btn-lg btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

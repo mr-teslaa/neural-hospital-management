@@ -1,0 +1,213 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+    <!-- Carousel Start -->
+    <div class="row">
+        <div class="col-lg-8 mt-2">
+            <div class="container-fluid p-2">
+                <div id="disease-carousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="w-100"
+                                 src=" {{ url_for('static', filename='img/carousel-1.jpg') }}"
+                                 alt="Image" />
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Neuro Disease 1</a>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="w-100"
+                                 src="{{ url_for('static', filename='img/carousel-2.jpg') }}"
+                                 alt="Image" />
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 900px">
+                                    <a href="{{ url_for("public.book_test") }}"
+                                       class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Neuro Disease 1</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="w-100"
+                                 src="{{ url_for('static', filename='img/carousel-1.jpg') }}"
+                                 alt="Image" />
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 900px">
+                                    <a href="{{ url_for("public.book_test") }}"
+                                       class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Neuro Disease 3</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#disease-carousel"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#disease-carousel"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mt-2">
+            <div class="appointment-form h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn">
+                <h1 class="text-white mb-4">Make Appointment</h1>
+                <div>
+                    <!-- FORM VALIDATION ERROR -->
+                    {% for field in [form.first_name, form.last_name, form.phone, form.location] %}
+                        {% if field.errors %}
+                        <div class="row my-1">
+                            <div class="col-12">
+                                <div class="toast align-items-center bg-danger fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="flase" style="width: 100%">
+                                    <div class="toast-body">
+                                        {% for error in field.errors %}
+                                            <sapn class="text-white mb-0">{{ field.label }}: {{ error }}</sapn>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6">
+                            {{ form.first_name(class="form-control bg-light border-0", placeholder="First Name", style="height: 55px") }}
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            {{ form.last_name(class="form-control bg-light border-0", placeholder="Last Name", style="height: 55px") }}
+                        </div>
+                        <div class="col-12">
+                            {{ form.phone(class="form-control bg-light border-0",  placeholder="Phone", style="height: 55px") }}
+                        </div>
+                        <div class="col-12 text-start">
+                            {{ form.location.label(class="form-label text-white") }}
+                            {{ form.location(class="form-select bg-light border-0", style="height: 55px") }}
+                        </div>
+                        <div class="col-12">
+                            {{ form.submit(class="btn btn-dark w-100 py-3") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+    <!-- Pricing Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row g-5">
+                <h5 class="position-relative d-inline-block text-primary text-uppercase">Our Popular Tests</h5>
+                <div class="col-lg-12">
+                    <div class="owl-carousel price-carousel wow zoomIn" data-wow-delay="0.9s">
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/baer-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>BAER</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>The Baer test, also known as the Brainstem Auditory Evoked Response (BAER) test, is a diagnostic tool that uses electrodes to measure the electrical activity in the auditory pathway, helping to assess hearing function and identify potential auditory nerve and brainstem abnormalities.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/eeg-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>EEG</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>An Electroencephalogram (EEG) test records the electrical activity of the brain through electrodes placed on the scalp, used to diagnose various neurological conditions and study brain function.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/ncv-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>NCV</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>Nerve Conduction Velocity (NCV) test is a diagnostic procedure that measures the speed at which electrical impulses travel along peripheral nerves, aiding in the assessment of nerve damage and related disorders.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/emg-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>EMG</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>An Electromyogram (EMG) test involves placing electrodes on muscles to record and assess the electrical activity, aiding in the diagnosis of neuromuscular disorders and evaluating muscle function.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/vep-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>VEP</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>Visual Evoked Potential (VEP) test measures the brain's electrical responses to visual stimuli, assisting in the diagnosis of visual pathway disorders and neurological conditions affecting vision.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pricing End -->
+
+{% endblock %}

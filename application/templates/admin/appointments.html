@@ -1,0 +1,229 @@
+{% extends 'layout/admin-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Booked Appointments</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{{ url_for("public.index") }}"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-plus fa-sm text-white-50"></i> Add new Appointment</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Appointment date</th>
+                                <th>Patient Name</th>
+                                <th>Mobile No.</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Action Buttons</th>
+                            </tr>
+                        </thead>
+                        {% if appointments %}
+                            <tbody>
+                                {% for appointment in appointments %}
+                                    <tr>
+                                        <td>
+                                            {% if appointment.appointment_date %}
+                                            {{ moment(appointment.appointment_date).format('LL') }}
+                                            {% else %}
+                                            <span class="bg-warning text-white p-1">
+                                                No date assinged
+                                            </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ appointment.first_name | title }} {{ appointment.last_name | title }}</td>
+                                        <td>{{ appointment.phone }}</td>
+                                        <td>
+                                            {% if appointment.location == 'kolkata-airport-area' %}
+                                                Kolkata Airport Area
+                                            {% elif appointment.location == 'bongaon' %}
+                                                Bongaon
+                                            {% elif appointment.location == 'habra' %}
+                                                Habra
+                                            {% else %}
+                                                Not Assinged
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if appointment.status == 'pending-date' %}
+                                            <span class="bg-info text-white p-1">
+                                                Pending Date
+                                            </span>
+                                            {% elif appointment.status == 'pending-report' %}
+                                            <span class="bg-info text-white p-1">
+                                                Pending Report
+                                            </span>
+                                            {% elif appointment.status == 'pending-test' %}
+                                            <span class="bg-info text-white p-1">
+                                                Pending Test
+                                            </span>
+                                            {% elif appointment.status == 'completed' %}
+                                            <span class="text-success fw-bolder">
+                                                Completed
+                                            </span>
+                                            {% else %}
+                                            <span class="bg-warning text-white p-1">
+                                                Not Assinged
+                                            </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <button href="#"
+                                                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                                    data-toggle="modal"
+                                                    data-target="#changeStatusModal{{appointment.id}}">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i> Status
+                                            </button>
+                                            <a href="{{ url_for('admin.edit_appointment', appointment_id=appointment.id) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-edit fa-sm text-white-50"></i>
+                                            </a> 
+                                    <!-- button href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                                        <i class="fas fa-trash fa-sm text-white-50"></i>
+                                    </button> -->
+                                            <!-- APPOINTMENT STATUS Modal-->
+                                            <div class="modal fade"
+                                                 id="changeStatusModal{{appointment.id}}"
+                                                 tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="changeStatusModal{{appointment.id}}Label"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="changeStatusModalLabel">Change Appointment Status</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="">
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-8">
+                                                                            <!-- Date Input -->
+                                                                            <input type="date" class="form-control" id="appointmentDate{{appointment.id}}">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <!-- Save Date Button -->
+                                                                            <button class="btn btn-primary ms-2" id="saveAppointmentDateButton{{appointment.id}}">Save Date</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control form-select-lg" id="appointmentStatus{{appointment.id}}">
+                                                                                <option value="pending-date"
+                                                                                        {% if appointment.status == 'pending-date' %}selected{% endif %}>
+                                                                                    Pending Date
+                                                                                </option>
+                                                                                <option value="pending-test"
+                                                                                        {% if appointment.status == 'pending-test' %}selected{% endif %}>
+                                                                                    Pending Test
+                                                                                </option>
+                                                                                <option value="pending-report"
+                                                                                        {% if appointment.status == 'pending-report' %}selected{% endif %}>
+                                                                                    Pending Report
+                                                                                </option>
+                                                                                <option value="completed"
+                                                                                        {% if appointment.status == 'completed' %}selected{% endif %}>
+                                                                                    Completed
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <button class="btn btn-primary ms-2" id="saveAppointmentStatusButton{{appointment.id}}">Save Status</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <!-- SAVE DATE -->
+                                                            <script>
+                                                            const saveAppointmentDateButton{{appointment.id}} = document.getElementById('saveAppointmentDateButton{{appointment.id}}');
+
+                                                            const updateAppointmentDate{{appointment.id}} = async () => {
+                                                                const appointmentDate{{appointment.id}} = document.getElementById('appointmentDate{{appointment.id}}').value;
+
+                                                                try {
+                                                                    const response = await fetch(`{{ url_for('admin.update_appointment_date', appointment_id=appointment.id)  }}`, {
+                                                                        method: 'POST',
+                                                                        headers: { 'Content-Type': 'application/json' },
+                                                                        body: JSON.stringify({ date: appointmentDate{{appointment.id}} })
+                                                                    });
+
+                                                                    if (!response.ok) {
+                                                                        throw new Error(`Something went wrong! Status: ${response.status}`);
+                                                                    }
+
+                                                                    // Redirect to the dashboard after successful update
+                                                                    window.location.href = `{{ url_for('admin.appointments') }}`;
+                                                                } catch (error) {
+                                                                    console.error(error);
+                                                                }
+                                                            };
+
+                                                            // Call the function and update the date on button click
+                                                            saveAppointmentDateButton{{appointment.id}}.addEventListener('click', updateAppointmentDate{{appointment.id}});
+                                                            </script>
+
+                                                            <!-- SAVE STATUS -->
+                                                            <script>
+                                                                const saveAppointmentStatus{{appointment.id}} = document.getElementById('saveAppointmentStatusButton{{appointment.id}}')
+                                                                const updateAppointmentStatus{{appointment.id}} = async () => {
+                                                                    const appointmentStatus{{appointment.id}} = document.getElementById('appointmentStatus{{appointment.id}}').value;
+
+                                                                    try {
+                                                                        const response = await fetch(`{{ url_for('admin.update_appointment_status', appointment_id=appointment.id)  }}`, {
+                                                                            method: 'POST',
+                                                                            headers: { 'Content-Type': 'application/json' },
+                                                                            body: JSON.stringify({ status: appointmentStatus{{appointment.id}} })
+                                                                        });
+
+                                                                        if (!response.ok) {
+                                                                            throw new Error(`Something went wrong! Status: ${response.status}`);
+                                                                        }
+
+                                                                        // Redirect to the dashboard after successful update
+                                                                        window.location.href = `{{ url_for('admin.appointments') }}`;
+                                                                    } catch (error) {
+                                                                        console.error(error);
+                                                                    }
+                                                                };
+
+                                                                // Call the function and update the status on button click
+                                                                saveAppointmentStatus{{appointment.id}}.addEventListener('click', updateAppointmentStatus{{appointment.id}});
+                                                            </script>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary " type="button" data-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% else %}
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-center">No appointments available</td>
+                                </tr>
+                            </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'layout/user-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Booked Tests</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{{ url_for("public.book_test") }}"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right">
+                    <i class="fas fa-plus fa-sm text-white-50"></i>
+                    Book New Test
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Test Date</th>
+                                <th>Patients Name</th>
+                                <th>Test Name</th>
+                                <th>Phone</th>
+                                <th>Action Buttons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if tests %}
+                                {% for test in tests %}
+                                    <tr>
+                                        <td>
+                                            {% if test.appointment_date %}
+                                                {{ moment(test.appointment_date).format('LL') }}
+                                            {% else %}
+                                                <span class="bg-warning text-white p-1">No date assinged</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ test.patients.first_name }} {{ test.patients.last_name }}</td>
+                                        <td>{{ test.test_name | upper }}</td>
+                                        <td>{{ test.phone }}</td>
+                                        <td>
+                                            {% if test.report and test.report != 'defaultreport.jpg' %}
+                                                <form action="{{ url_for('users.download_test', test_id=test.id) }}"
+                                                      method="post">
+                                                    <button type="submit"
+                                                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                        <i class="fas fa-download fa-sm text-white"></i> Download Report
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <span class="bg-warning text-white p-1">Report Pending</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No tests booked</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

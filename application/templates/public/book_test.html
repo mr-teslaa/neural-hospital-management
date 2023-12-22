@@ -1,0 +1,49 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+    <div class="appointment-form p-5 wow zoomIn">
+        <div class="container" style="max-width: 50%;">
+            <div class="text-center mb-5">
+                <h1 class="text-white mb-4">Book Test</h1>
+                <div>
+                    <!-- FORM VALIDATION ERROR -->
+                    {% for field in [form.first_name, form.last_name, form.phone, form.test_name] %}
+                        {% if field.errors %}
+                        <div class="row my-1">
+                            <div class="col-12">
+                                <div class="toast align-items-center bg-danger fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="flase" style="width: 100%">
+                                    <div class="toast-body">
+                                        {% for error in field.errors %}
+                                            <sapn class="text-white mb-0">{{ field.label }}: {{ error }}</sapn>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6">
+                            {{ form.first_name(class="form-control bg-light border-0", placeholder="First Name", style="height: 55px") }}
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            {{ form.last_name(class="form-control bg-light border-0", placeholder="Last Name", style="height: 55px") }}
+                        </div>
+                        <div class="col-xl-12">
+                            {{ form.phone(class="form-control bg-light border-0", placeholder="Phone Number", style="height: 55px") }}
+                        </div>
+                        <div class="col-12 text-start">
+                            {{ form.test_name.label(class="text-white") }}
+                            {{ form.test_name(class="form-select bg-light border-0", style="height: 55px") }}
+                        </div>
+                        <div class="col-12">
+                            {{ form.submit(class="btn btn-dark w-100 py-3") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

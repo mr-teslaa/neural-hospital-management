@@ -1,0 +1,41 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <img src="{{ url_for('static', filename='img/logo.png') }} " style="width: -webkit-fill-available;" />
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {{ 'active' if request.endpoint == 'staffs.staff_dashboard' else '' }}">
+        <a class="nav-link" href="{{ url_for('staffs.staff_dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {{ 'active' if request.endpoint == 'staffs.appointments' else '' }}">
+        <a class="nav-link" href="{{ url_for('staffs.appointments') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Appointment Management</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {{ 'active' if request.endpoint == 'staffs.tests' else '' }}">
+        <a class="nav-link" href="{{ url_for('staffs.tests') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Test Booking Management</span>
+        </a>
+    </li>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+    
+
+</ul>

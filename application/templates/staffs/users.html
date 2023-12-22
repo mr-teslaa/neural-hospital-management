@@ -1,0 +1,60 @@
+{% extends 'layout/staff-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">User Management</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="#"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-plus fa-sm text-white-50"></i> Add new User</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Mobile No.</th>
+                                <th>Location</th>
+                                <th>Start date</th>
+                                <th>Action Buttons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.phone }}</td>
+                                    <td>Location not added in db</td>
+                                    <td>Start date not added in db</td>
+                                    <td>
+                                    <button href="#"
+                                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fas fa-eye fa-sm text-white-50"></i> View
+                                    </button>
+                                    <button href="#"
+                                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fas fa-edit fa-sm text-white-50"></i> Update
+                                    </button>
+                                    <button href="#"
+                                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fas fa-trash fa-sm text-white-50"></i> Delete
+                                    </button>
+                                </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

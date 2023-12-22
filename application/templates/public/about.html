@@ -1,0 +1,117 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    <!-- About Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <div class="section-title mb-4">
+                        <h5 class="position-relative d-inline-block text-primary text-uppercase">About Us</h5>
+                        <h1 class="display-5 mb-0">The Best Neuro Clinic That You Can Trust</h1>
+                    </div>
+                    <h4 class="text-body fst-italic mb-4">
+                        Elevating Health through Global Expertise: Transformative Solutions for Neurological and Medical Well-being
+                    </h4>
+                    <p class="mb-4">
+                        Our comprehensive guidance leverages the latest global knowledge and practices to help you attain an optimal state of health, offering potential solutions for the management and potential recovery from neurological and medical ailments.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.3s">
+                            <h5 class="mb-3">
+                                <i class="fa fa-check-circle text-primary me-3"></i>Award
+                                Winning
+                            </h5>
+                            <h5 class="mb-3">
+                                <i class="fa fa-check-circle text-primary me-3"></i>Professional Staff
+                            </h5>
+                        </div>
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
+                            <h5 class="mb-3">
+                                <i class="fa fa-check-circle text-primary me-3"></i>24/7
+                                Opened
+                            </h5>
+                            <h5 class="mb-3">
+                                <i class="fa fa-check-circle text-primary me-3"></i>Fair
+                                Prices
+                            </h5>
+                        </div>
+                    </div>
+                    <!-- <a href="{{ url_for('public.book_test') }}"
+    class="btn btn-primary py-3 px-5 mt-4 wow zoomIn"
+    data-wow-delay="0.6s">Book Test</a> -->
+                </div>
+                <div class="col-lg-5" style="min-height: 500px">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn"
+                             data-wow-delay="0.9s"
+                             src="{{ url_for('static', filename='img/dr-joydeep-mukherjee-featured.jpg') }}"
+                             style="object-fit: cover" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+<!-- Team Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4 wow slideInUp" data-wow-delay="0.1s">
+                <div class="section-title bg-light rounded h-100 p-5">
+                    <h5 class="position-relative d-inline-block text-primary text-uppercase">Our Staff</h5>
+                    <h1 class="display-6 mb-4">Meet Our Certified & Experienced Staff</h1>
+                    <a href="appointment.html" class="btn btn-primary py-3 px-5">Appointment</a>
+                </div>
+            </div>
+            <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
+                <div class="team-item">
+                    <div class="position-relative rounded-top" style="z-index: 1;">
+                        <img 
+                            class="img-fluid rounded-top w-100" 
+                            src="{{ url_for('static', filename='img/dr-joydeep-1.jpeg') }}" 
+                            alt=""
+                        />
+                    </div>
+                    <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
+                        <h4 class="mb-2">Dr. Joydeep Mukherjee  </h4>
+                        <p class="text-primary mb-0">Experienced Neurologist</p>
+                        <p class="test-secondary mb-0"> MBBS, DNB, MNAMS, DM, FICP <br>
+                            DM Neurology from NIMHANS, Bangalore, Institute of National Importance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
+                <div class="team-item">
+
+                    <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
+                        <h4 class="mb-2">Priyadyauti Paul</h4>
+                        <p class="text-primary mb-0">Experienced Neuro-technologist</p>
+                        <p class="text-secondary mb-0">NRS Medical College, Kolkata</p>
+                    </div>
+                    <br>
+                    <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
+                        <h4 class="mb-2">Keya Debnath</h4>
+                        <p class="text-primary mb-0">Experienced Neuro-technologist</p>
+                        <p class="text-secondary mb-0">NRS Medical College, Kolkata</p>
+                    </div>
+                    <br>
+                    <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
+                        <h4 class="mb-2">Sudipta Mukherjee</h4>
+                        <p class="text-primary mb-0">Advisor, MBA (Human Resource)</p>
+                    </div>
+                    <br>
+                    <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
+                        <h4 class="mb-2">Punam Yadav</h4>
+                        <p class="text-primary mb-0">Receptionist</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+{% endblock %}

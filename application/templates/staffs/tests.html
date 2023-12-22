@@ -1,0 +1,80 @@
+{% extends 'layout/staff-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Booked Tests</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <!-- <a href="{{ url_for('public.book_test') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right">
+                    <i class="fas fa-plus fa-sm text-white-50"></i>
+                    Book New Test
+                </a> -->
+                <a href="#"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right">
+                    <i class="fas fa-plus fa-sm text-white-50"></i>
+                    Book New Test
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Appointment Date</th>
+                                <th>Patients Name</th>
+                                <th>Test Name</th>
+                                <th>Phone</th>
+                                <th>Assigned Staff</th>
+                                <th style="width: 20%;">Action Buttons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if tests %}
+                                {% for test in tests %}
+                                    <tr>
+                                        <td>{{ moment(test.appointment_date).format('LL') }}</td>
+                                        <td>{{ test.patients.first_name }} {{ test.patients.last_name }}</td>
+                                        <td>{{ test.test_name | upper }}</td>
+                                        <td>{{ test.phone }}</td>
+                                        <td>
+                                            {% if test.assigned_staff_email %}
+                                                {{ test.assigned_staff_email | lower }}
+                                            {% else %}
+                                                <span class="bg-warning text-white p-1">No staff assinged</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if test.report and test.report != 'defaultreport.jpg' %}
+                                                <form action="{{ url_for('staffs.download_test', test_id=test.id) }}"
+                                                      method="post">
+                                                    <button type="submit"
+                                                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                        <i class="fas fa-download fa-sm text-white"></i> Download Report
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                Report Pending
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">
+                                        <h4 class="text-center">No tests booked.</h4>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

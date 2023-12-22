@@ -1,0 +1,62 @@
+{% extends 'layout/admin-base.html' %}
+{% block content %}
+    <!-- START Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">User Management</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{{ url_for('admin.new_user') }}"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-plus fa-sm text-white-50"></i> 
+                   Add new User
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Start date</th>
+                                <th style="width: 15%;">Action Buttons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.phone }}</td>
+                                    <td>{{ moment(user.join_date).format('LL') }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-around align-items-center gap-2">
+                                            <a href="#"
+                                               class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-eye fa-sm text-white-50"></i> View
+                                            </a>
+                                            <a href="{{ url_for('admin.user_edit', username=user.username) }}"
+                                               class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                <i class="fas fa-edit fa-sm text-white-50"></i>
+                                            </a>
+                                            <a href="#"
+                                               class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                                                <i class="fas fa-trash fa-sm text-white-50"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endblock %}

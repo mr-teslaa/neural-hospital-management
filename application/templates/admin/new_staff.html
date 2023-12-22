@@ -1,0 +1,127 @@
+{% extends 'layout/admin-base.html' %}
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Add New Staff</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <!-- FIRST NAME -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.first_name.label(class="form-label") }}
+                                {% if form.first_name.errors %}
+                                    {{ form.first_name(class="form-control is-invalid", placeholder="First name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.first_name.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.first_name(class="form-control", placeholder="First name") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- LAST NAME -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.last_name.label(class="form-label") }}
+                                {% if form.last_name.errors %}
+                                    {{ form.last_name(class="form-control is-invalid", placeholder="Last name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last_name.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.last_name(class="form-control", placeholder="Last name") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- EMAIL -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid", placeholder="Email") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control", placeholder="Email") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- PHONE -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.phone.label(class="form-label") }}
+                                {% if form.phone.errors %}
+                                    {{ form.phone(class="form-control is-invalid", placeholder="Phone") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.phone(class="form-control", placeholder="Phone") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- ASSIGNED LOCATION -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.assigned_location.label(class="form-label") }}
+                                {% if form.assigned_location.errors %}
+                                    {{ form.assigned_location(class="form-control is-invalid", placeholder="Phone") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.assigned_location.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.assigned_location(class="form-control", placeholder="Phone") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- PASSWORD -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control is-invalid", placeholder="Password") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control", placeholder="Password") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- RETYPE PASSWORD -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.confirm_password.label(class="form-label") }}
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control is-invalid", placeholder="Re-type Password") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors %}<span>{{ error }}</span>{% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(class="form-control", placeholder="Re-type Password") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end">
+                        {{ form.submit(class="btn btn-primary ms-auto") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock %}

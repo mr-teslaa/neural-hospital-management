@@ -1,0 +1,122 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+
+    <!-- Pricing Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row g-5">
+                <h5 class="position-relative d-inline-block text-primary text-uppercase">Our Popular Tests</h5>
+                <div class="col-lg-12">
+                    <div class="owl-carousel price-carousel wow zoomIn" data-wow-delay="0.9s">
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/baer-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>BAER</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>The Baer test, also known as the Brainstem Auditory Evoked Response (BAER) test, is a diagnostic tool that uses electrodes to measure the electrical activity in the auditory pathway, helping to assess hearing function and identify potential auditory nerve and brainstem abnormalities.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/eeg-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>EEG</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>An Electroencephalogram (EEG) test records the electrical activity of the brain through electrodes placed on the scalp, used to diagnose various neurological conditions and study brain function.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/ncv-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>NCV</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>Nerve Conduction Velocity (NCV) test is a diagnostic procedure that measures the speed at which electrical impulses travel along peripheral nerves, aiding in the assessment of nerve damage and related disorders.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/emg-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>EMG</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>An Electromyogram (EMG) test involves placing electrodes on muscles to record and assess the electrical activity, aiding in the diagnosis of neuromuscular disorders and evaluating muscle function.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                        <div class="price-item pb-4">
+                            <div class="position-relative">
+                                <img class="img-fluid rounded-top"
+                                     src="{{ url_for('static', filename='img/vep-test.jpg') }}"
+                                     alt="" />
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                                     style="z-index: 2">
+                                </div>
+                            </div>
+                            <div class="position-relative text-center bg-light border-bottom border-primary p-2 pb-5">
+                                <h4>VEP</h4>
+                                <hr class="text-primary w-50 mx-auto mt-0" />
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p>Visual Evoked Potential (VEP) test measures the brain's electrical responses to visual stimuli, assisting in the diagnosis of visual pathway disorders and neurological conditions affecting vision.</p>
+                                </div>
+                                <a href="{{ url_for("public.book_test") }}"
+                                   class="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle">Book Test</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- Pricing End -->
+    <div class="col-lg-5 service-item wow zoomIn text-center p-5 float-right" data-wow-delay="0.9s">
+        <div class="position-relative bg-primary rounded h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+            <h3 class="text-white mb-3">Make Appointment</h3>
+            <p class="text-white mb-3">Transform your health journey today – Schedule an appointment to embark on a path towards wellness.</p>
+            <h2 class="text-white mb-0">+91 8910026113</h2>
+        </div>
+    </div>
+    
+
+{% endblock %}

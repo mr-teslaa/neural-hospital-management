@@ -1,0 +1,192 @@
+{% extends 'layout/admin-base.html' %}
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Staff Management</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{{ url_for("admin.new_staff") }}"
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-plus fa-sm text-white-50"></i> Add new Staff</a>
+            </div>
+            <div class="card-body">
+                <div id="messageStaffLocationStatus"></div>
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                           id="dataTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Assigned Location</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined Date</th>
+                                <th style="width: 25%;">Action Buttons</th>
+                            </tr>
+                        </thead>
+                        {% if staffs %}
+                            <tbody>
+                                {% for staff in staffs %}
+                                    <tr>
+                                        <td>{{ staff.first_name }} {{ staff.last_name }}</td>
+                                        <td>
+                                            <span id="tableAssignedLocation">
+                                                {% if staff.assigned_location == 'kolkata-airport-area' %}
+                                                    Kolkata Airport Area
+                                                {% elif staff.assigned_location == 'bongaon' %}
+                                                    Bongaon
+                                                {% elif staff.assigned_location == 'habra' %}
+                                                    Habra
+                                                {% else %}
+                                                    Not Assinged
+                                                {% endif %}
+                                            </span>
+                                        </td>
+                                        <td>{{ staff.email }}</td>
+                                        <td>{{ staff.phone }}</td>
+                                        <td>{{ moment(staff.join_date).format('LL') }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-around align-items-center gap-2">
+                                                <a href="#"
+                                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                                   data-toggle="modal"
+                                                   data-target="#assignLocationModal{{ staff.id }}">
+                                                    <i class="fas fa-eye fa-sm text-white-50"></i> View
+                                                </a>
+                                                <a href="{{ url_for('admin.staff_edit', username=staff.username) }}"
+                                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                                    <i class="fas fa-edit fa-sm text-white-50"></i>
+                                                    Edit
+                                                </a>
+                                                <a href="#"
+                                                   class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"
+                                                   data-toggle="modal"
+                                                   data-target="#deleteStaffModal{{ staff.id }}">
+                                                    <i class="fas fa-trash fa-sm text-white-50"></i>
+                                                    Delete
+                                                </a>
+                                            </div>
+                                            <!-- Assign Staff on location Modal-->
+                                            <div class="modal fade"
+                                                 id="assignLocationModal{{ staff.id }}"
+                                                 tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="assignLocationModalLabel{{ staff.id }}"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="assignLocationModalLabel{{ staff.id }}">Assign Staff to a location</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ url_for('admin.update_staff_location', staff_username=staff.username) }}" method="post">
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <select name="assignedLocation" class="form-control form-select-lg"
+                                                                                    id="assignedLocation{{ staff.id }}">
+                                                                                <option value="kolkata-airport-area"
+                                                                                        {% if staff.assigned_location == 'kolkata-airport-area' %}selected{% endif %}>
+                                                                                    Kolkata Airport Area
+                                                                                </option>
+                                                                                <option value="habra"
+                                                                                        {% if staff.assigned_location == 'habra' %}selected{% endif %}>
+                                                                                    Habra
+                                                                                </option>
+                                                                                <option value="bongaon"
+                                                                                        {% if staff.assigned_location == 'bongaon' %}selected{% endif %}>
+                                                                                    Bongaon
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <button class="btn btn-primary ms-2"
+                                                                                    id="saveAssignedLocationButton{{ staff.id }}">
+                                                                                Save
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary"
+                                                                    type="button"
+                                                                    data-dismiss="modal"
+                                                                    id="assignStaffLocatoinModalCancelButton{{ staff.id }}">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Delete Staff Modal-->
+                                            <div class="modal fade"
+                                                 id="deleteStaffModal{{ staff.id }}"
+                                                 tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="deleteStaffModalLabel{{ staff.id }}"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteStaffModalLabel{{ staff.id }}">Are you sure to delete this staff?</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-bordered">
+                                                                <tr>
+                                                                    <th>Staff Name</th>
+                                                                    <td>{{ staff.first_name }} {{ staff.last_name }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Email</th>
+                                                                    <td>{{ staff.email }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Phone</th>
+                                                                    <td>{{ staff.phone }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Joined</th>
+                                                                    <td>{{ moment(staff.join_date).format('LL') }}</td>
+                                                                </tr>
+                                                            </table>
+                                                            Select "Confirm delete staff account" below if you want to delete this staff.
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                            <a class="btn btn-danger"
+                                                               href="{{ url_for('admin.staff_delete', username=staff.username) }}">
+                                                                Confirm delete staff account
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% else %}
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="text-center">No Satff Added</td>
+                                </tr>
+                            </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock %}

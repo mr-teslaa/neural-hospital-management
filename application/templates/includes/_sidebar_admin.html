@@ -1,0 +1,40 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+    id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+       href="#">
+        <img src="{{ url_for('static', filename='img/logo.png') }} "
+             style="width: -webkit-fill-available" />
+    </a>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item {{ 'active' if request.endpoint == 'admin.admin_dashboard' else '' }}">
+        <a class="nav-link" href="{{ url_for("admin.admin_dashboard") }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item {{ 'active' if request.endpoint == 'admin.appointments' else '' }}">
+        <a class="nav-link" href="{{ url_for("admin.appointments") }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Appointments</span></a>
+    </li>
+    <li class="nav-item {{ 'active' if request.endpoint == 'admin.tests' else '' }}">
+        <a class="nav-link" href="{{ url_for("admin.tests") }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Tests</span></a>
+    </li>
+    <li class="nav-item {{ 'active' if request.endpoint == 'admin.users' else '' }}">
+        <a class="nav-link" href="{{ url_for("admin.users") }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>User Management</span>
+        </a>
+    </li>
+    <li class="nav-item {{ 'active' if request.endpoint == 'admin.staffs' else '' }}">
+        <a class="nav-link" href="{{ url_for("admin.staffs") }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Staff Management</span>
+        </a>
+    </li>
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>
